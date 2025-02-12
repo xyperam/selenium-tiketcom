@@ -69,15 +69,19 @@ public class PesawatPage {
 	        // Pastikan atribut 'value' tidak null sebelum parsing
 	        String valueAttr = qtyField.getAttribute("value");
 	        int currentValue = (valueAttr != null && !valueAttr.isEmpty()) ? Integer.parseInt(valueAttr) : 0;
-	        WebElement addButton = wait.until(ExpectedConditions.elementToBeClickable(addButtonDewasa));
 
-	        // Jika jumlah penumpang < 7, klik tombol tambah
-	        if (currentValue < 7) {
-	            addButton.click();
-	        } else {
+	        // Cek apakah tombol "Tambah Penumpang" sudah disabled
+	        WebElement addButton = driver.findElement(addButtonDewasa);
+	        boolean isDisabled = addButton.getAttribute("disabled") != null;
+
+	        if (currentValue >= 7 || isDisabled) {
 	            System.out.println("Jumlah penumpang telah mencapai batas: " + currentValue);
 	            break;
 	        }
+
+	        // Klik tombol tambah jika belum disabled
+	        WebElement addButtonClickable = wait.until(ExpectedConditions.elementToBeClickable(addButtonDewasa));
+	        addButtonClickable.click();
 
 	        // Tunggu qtyField diperbarui sebelum membaca nilai baru
 	        WebElement qtyFinal = wait.until(ExpectedConditions.visibilityOfElementLocated(quantityPassangers));
@@ -92,5 +96,6 @@ public class PesawatPage {
 	        }
 	    }
 	}
+
 
 }
