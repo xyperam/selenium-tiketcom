@@ -30,7 +30,8 @@ public class PesawatPage {
 	By addButtonDewasa = By.xpath("(//button[contains(@class, 'QuantityEditor_operation_button__')])[2]");
 	By minButtonDewasa = By.xpath("(//button[contains(@class, 'QuantityEditor_operation_button__')])[1]");
 	By quantityPassangers = By.xpath("//input[@class='QuantityEditor_quantity_input__bAtrd']");
-	
+	By buttonSubmitPassengers = By.xpath("//button[contains(@class,'PassengerForm_btn_save')]");
+	By buttonSearch = By.xpath("//button[contains(@class,'SearchForm_btn_submit')]");
 	public void inputDerparture(String airportName) {
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 		driver.findElement(derpartureInput).click();
@@ -96,6 +97,12 @@ public class PesawatPage {
 	        }
 	    }
 	}
+			public void clickSubmitPassenger() {
+				driver.findElement(buttonSubmitPassengers).click();
+			}
+			public void clickButtonSearch() {
+				driver.findElement(buttonSearch).click();
+			}
 
 
 }

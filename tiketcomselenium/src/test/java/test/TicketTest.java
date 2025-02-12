@@ -44,6 +44,8 @@ public void testSearchFlight(String derparture,String destination) throws Interr
 	pesawatPage.inputDate();
 	Thread.sleep(1000);
 	pesawatPage.pickPassanger();
+	pesawatPage.clickSubmitPassenger();
+	pesawatPage.clickButtonSearch();
 }
 
 @AfterClass
