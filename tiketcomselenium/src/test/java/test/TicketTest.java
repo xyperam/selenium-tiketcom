@@ -23,8 +23,7 @@ public class TicketTest {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.get("https://www.tiket.com/");
-		
+		driver.get("https://www.tiket.com/");		
 		homePage = new HomePage(driver);
 		pesawatPage = new PesawatPage(driver);
 	}
@@ -32,8 +31,6 @@ public class TicketTest {
 public Object[][] provideAirportNames() {
     return new Object[][] {
         {"Halim","Ngurah"},
-        
-        
     };
 }
 @Test(dataProvider = "airportNames")
@@ -45,6 +42,8 @@ public void testSearchFlight(String derparture,String destination) throws Interr
 	pesawatPage.inputDestination(destination);
 	Thread.sleep(1000);
 	pesawatPage.inputDate();
+	Thread.sleep(1000);
+	pesawatPage.pickPassanger();
 }
 
 @AfterClass
