@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -46,7 +47,11 @@ public void testSearchFlight(String derparture,String destination) throws Interr
 	pesawatPage.pickPassanger();
 	pesawatPage.clickSubmitPassenger();
 	pesawatPage.clickButtonSearch();
+	String actualUrl = driver.getCurrentUrl();
+	System.out.println("Current URL: " + actualUrl);
+	Assert.assertTrue(actualUrl.startsWith("https://www.tiket.com/pesawat/search"),"Failed: Halaman pencarian tidak terbuka, URL: " + actualUrl);
 }
+
 
 @AfterClass
 public void tearDown() {

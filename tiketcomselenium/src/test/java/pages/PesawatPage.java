@@ -11,9 +11,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PesawatPage {
 	WebDriver driver;
-	
+	WebDriverWait wait;
 	public PesawatPage(WebDriver driver) {
 		this.driver = driver;
+		this.wait = new WebDriverWait(driver,Duration.ofSeconds(20));
 	}
 	//locators
 	By derpartureInput = By.xpath("//div[@data-testid='clickable-departure-input']//div");
@@ -33,7 +34,7 @@ public class PesawatPage {
 	By buttonSubmitPassengers = By.xpath("//button[contains(@class,'PassengerForm_btn_save')]");
 	By buttonSearch = By.xpath("//button[contains(@class,'SearchForm_btn_submit')]");
 	public void inputDerparture(String airportName) {
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+		
 		driver.findElement(derpartureInput).click();
 		WebElement searchBoxInputDerp = wait.until(ExpectedConditions.visibilityOfElementLocated(searchBoxInputDerparture));
 		driver.findElement(searchBoxInputDerparture).sendKeys(airportName);
@@ -42,7 +43,7 @@ public class PesawatPage {
 		
 	}
 	public void inputDestination(String airportName) {
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+	
 		driver.findElement(destinationInput).click();
 		WebElement searchBoxInputDest = wait.until(ExpectedConditions.visibilityOfElementLocated(searchBoxInputDestination));
 		driver.findElement(searchBoxInputDestination).sendKeys(airportName);
@@ -52,7 +53,7 @@ public class PesawatPage {
 	}
 	public void inputDate() {
 		driver.findElement(elementClickDate).click();
-		WebDriverWait wait =  new WebDriverWait(driver,Duration.ofSeconds(20));
+	
 		WebElement datepick = wait.until(ExpectedConditions.elementToBeClickable(dateDerparture));
 		datepick.click();
 	}
@@ -61,7 +62,6 @@ public class PesawatPage {
 	    // Klik elemen untuk membuka pop-up pemilihan penumpang
 	    driver.findElement(passangersPicker).click();
 
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
 	    for (int i = 0; i < 10; i++) {            
 	        // Tunggu hingga qtyField tersedia dan memiliki atribut 'value'
@@ -101,7 +101,11 @@ public class PesawatPage {
 				driver.findElement(buttonSubmitPassengers).click();
 			}
 			public void clickButtonSearch() {
+				
 				driver.findElement(buttonSearch).click();
+				 wait.until(ExpectedConditions.urlContains("pesawat/search"));
+				 System.out.println("Navigated to: " + driver.getCurrentUrl());
+				
 			}
 
 
