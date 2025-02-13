@@ -5,8 +5,10 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,14 +30,21 @@ public class TicketTest {
 		homePage = new HomePage(driver);
 		pesawatPage = new PesawatPage(driver);
 	}
+
+@BeforeMethod
+public void navigateToHomePage() {
+    driver.get("https://www.tiket.com/");
+}
 @DataProvider(name = "airportNames")
 public Object[][] provideAirportNames() {
     return new Object[][] {
         {"Halim","Ngurah"},
+        {"Halim","Changi"}
     };
 }
 @Test(dataProvider = "airportNames")
 public void testSearchFlight(String derparture,String destination) throws InterruptedException {
+	Reporter.log("Test dimulai: Mencari penerbangan dari " + derparture + " ke " + destination, true);
 	homePage.clickFlight();
 	Thread.sleep(100);
 	pesawatPage.inputDerparture(derparture);
@@ -50,6 +59,8 @@ public void testSearchFlight(String derparture,String destination) throws Interr
 	String actualUrl = driver.getCurrentUrl();
 	System.out.println("Current URL: " + actualUrl);
 	Assert.assertTrue(actualUrl.startsWith("https://www.tiket.com/pesawat/search"),"Failed: Halaman pencarian tidak terbuka, URL: " + actualUrl);
+	Reporter.log("Test berhasil: Pencarian penerbangan berhasil dilakukan", true);
+	 
 }
 
 
