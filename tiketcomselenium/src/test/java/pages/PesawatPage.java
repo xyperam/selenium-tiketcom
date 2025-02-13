@@ -27,10 +27,10 @@ public class PesawatPage {
 	}
 	By elementClickDate = By.xpath("//div[contains(@class,'SearchForm_date')]//div//p[contains(@class,'SearchForm_departure_return')]");
 	By dateDerparture = By.xpath("//button[contains(@class,'Day_day')]//span[@aria-label='24 Februari 2025 Senin']");
-	By passangersPicker = By.xpath("//div[contains(@class,'SearchForm_passenger_picker')]");
+	By passengersPicker = By.xpath("//div[contains(@class,'SearchForm_passenger_picker')]");
 	By addButtonDewasa = By.xpath("(//button[contains(@class, 'QuantityEditor_operation_button__')])[2]");
 	By minButtonDewasa = By.xpath("(//button[contains(@class, 'QuantityEditor_operation_button__')])[1]");
-	By quantityPassangers = By.xpath("//input[@class='QuantityEditor_quantity_input__bAtrd']");
+	By quantitypassengers = By.xpath("//input[@class='QuantityEditor_quantity_input__bAtrd']");
 	By buttonSubmitPassengers = By.xpath("//button[contains(@class,'PassengerForm_btn_save')]");
 	By buttonSearch = By.xpath("//button[contains(@class,'SearchForm_btn_submit')]");
 	public void inputDerparture(String airportName) {
@@ -58,14 +58,14 @@ public class PesawatPage {
 		datepick.click();
 	}
 	
-	public void pickPassanger() {
+	public void pickPassenger() {
 	    // Klik elemen untuk membuka pop-up pemilihan penumpang
-	    driver.findElement(passangersPicker).click();
+	    driver.findElement(passengersPicker).click();
 
 
 	    for (int i = 0; i < 10; i++) {            
 	        // Tunggu hingga qtyField tersedia dan memiliki atribut 'value'
-	        WebElement qtyField = wait.until(ExpectedConditions.visibilityOfElementLocated(quantityPassangers));
+	        WebElement qtyField = wait.until(ExpectedConditions.visibilityOfElementLocated(quantitypassengers));
 
 	        // Pastikan atribut 'value' tidak null sebelum parsing
 	        String valueAttr = qtyField.getAttribute("value");
@@ -81,11 +81,14 @@ public class PesawatPage {
 	        }
 
 	        // Klik tombol tambah jika belum disabled
-	        WebElement addButtonClickable = wait.until(ExpectedConditions.elementToBeClickable(addButtonDewasa));
-	        addButtonClickable.click();
+	       if(!isDisabled) {
+	    	   
+	    	   WebElement addButtonClickable = wait.until(ExpectedConditions.elementToBeClickable(addButtonDewasa));
+	    	   addButtonClickable.click();
+	       }
 
 	        // Tunggu qtyField diperbarui sebelum membaca nilai baru
-	        WebElement qtyFinal = wait.until(ExpectedConditions.visibilityOfElementLocated(quantityPassangers));
+	        WebElement qtyFinal = wait.until(ExpectedConditions.visibilityOfElementLocated(quantitypassengers));
 	        String finalValueAttr = qtyFinal.getAttribute("value");
 	        int finalValue = (finalValueAttr != null && !finalValueAttr.isEmpty()) ? Integer.parseInt(finalValueAttr) : 0;
 
