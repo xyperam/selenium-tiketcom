@@ -1,6 +1,9 @@
 package pages;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,10 +55,13 @@ public class PesawatPage {
 		
 	}
 	public void inputDate() {
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		driver.findElement(elementClickDate).click();
-	
-		WebElement datepick = wait.until(ExpectedConditions.elementToBeClickable(dateDerparture));
-		datepick.click();
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy EEEE", new Locale("id", "ID"));
+		    String formattedDate = tomorrow.format(formatter);
+		    By dynamicDateXpath = By.xpath("//button[contains(@class,'Day_day')]//span[@aria-label='" + formattedDate + "']");
+		    WebElement datepick = wait.until(ExpectedConditions.elementToBeClickable(dynamicDateXpath));
+		    datepick.click();
 	}
 	
 	public void pickPassenger() {
